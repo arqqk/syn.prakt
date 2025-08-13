@@ -2,7 +2,7 @@ import random
 import time
 from threading import Thread
 from queue import Queue
-x
+
 def number_generator(queue):
     while True:
         num = random.randint(1, 100)
