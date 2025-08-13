@@ -1,0 +1,23 @@
+def calculate_positive_stats(arr):
+    sum_positive = 0
+    count_positive = 0
+    
+    for num in arr:
+        if num > 0:
+            sum_positive += num
+            count_positive += 1
+    
+    return sum_positive, count_positive
+
+# Ввод данных
+N = int(input("Введите размер массива: "))
+A = []
+for i in range(N):
+    A.append(float(input(f"Введите элемент {i+1}: ")))
+
+# Вычисление
+sum_pos, count_pos = calculate_positive_stats(A)
+
+# Вывод
+print(f"Сумма положительных элементов: {sum_pos}")
+print(f"Количество положительных элементов: {count_pos}")
