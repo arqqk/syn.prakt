@@ -1,1 +1,36 @@
+import java.util.Scanner;
 
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.print("Введите размер массива: ");
+        int N = scanner.nextInt();
+        
+        double[] A = new double[N];
+        for (int i = 0; i < N; i++) {
+            System.out.printf("Введите элемент %d: ", i+1);
+            A[i] = scanner.nextDouble();
+        }
+        
+        System.out.print("Введите число B: ");
+        double B = scanner.nextDouble();
+        
+        int count = 0;
+        double product = 1.0;
+        
+        for (double num : A) {
+            if (num > B) {
+                count++;
+                product *= num;
+            }
+        }
+        
+        System.out.printf("Количество элементов > B: %d\n", count);
+        if (count > 0) {
+            System.out.printf("Произведение элементов > B: %.2f\n", product);
+        } else {
+            System.out.println("Нет элементов > B.");
+        }
+    }
+}
