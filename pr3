@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Дни до Нового года</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            text-align: center;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        
+        input {
+            padding: 10px;
+            width: 100%;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        
+        button:hover {
+            background-color: #45a049;
+        }
+        
+        .result {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Дни до Нового года</h2>
+        <input type="text" id="dateInput" placeholder="Введите дату в формате дд.мм.гггг">
+        <button onclick="calculateDays()">Рассчитать</button>
+        <div id="daysResult" class="result"></div>
+        <div id="leapResult" class="result"></div>
+    </div>
+
+    <script>
+        function calculateDays() {
+            const dateInput = document.getElementById('dateInput').value;
+            const daysResult = document.getElementById('daysResult');
+            const leapResult = document.getElementById('leapResult');
+            
+            // Проверка формата даты
+            if (!/^\d{2}\.\d{2}\.\d{4}$/.test(dateInput)) {
+                daysResult.textContent = 'Неверный формат даты!';
+                leapResult.textContent = '';
+                return;
+            }
+            
+            const parts = dateInput.split('.');
+            const day = parseInt(parts[0], 10);
+            const month = parseInt(parts[1], 10);
+            const year = parseInt(parts[2], 10);
+            
+            // Проверка валидности даты
+            const inputDate = new Date(year, month - 1, day);
+            if (inputDate.getDate() !== day || inputDate.getMonth() !== month - 1 || inputDate.getFullYear() !== year) {
+                daysResult.textContent = 'Неверная дата!';
+                leapResult.textContent = '';
+                return;
+            }
+            
+            // Расчет дней до Нового года
+            const newYear = new Date(year, 11, 31); // 31 декабря текущего года
+            let diffTime = newYear - inputDate;
+            let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            // Если дата после 31 декабря, считаем для следующего года
+            if (diffDays < 0) {
+                const nextNewYear = new Date(year + 1, 11, 31);
+                diffTime = nextNewYear - inputDate;
+                diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            }
+            
+            daysResult.textContent = `До Нового года осталось: ${diffDays} дней`;
+            
+            // Проверка на високосный год
+            const isLeap = isLeapYear(year);
+            leapResult.textContent = isLeap ? 'Високосный год' : 'Не високосный год';
+        }
+        
+        function isLeapYear(year) {
+            if (year % 4 !== 0) {
+                return false;
+            } else if (year % 100 !== 0) {
+                return true;
+            } else {
+                return year % 400 === 0;
+            }
+        }
+    </script>
+</body>
+</html>
