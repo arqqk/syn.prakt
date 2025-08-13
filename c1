@@ -20,4 +20,4 @@ sum_pos, count_pos = calculate_positive_stats(A)
 
 # Вывод
 print(f"Сумма положительных элементов: {sum_pos}")
-print(f"Количество положительных элементов: {count_pos}")
+print(f"Количество положительных элементов: {count_pos})
