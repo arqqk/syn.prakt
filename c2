@@ -1,1 +1,27 @@
+def calculate_elements_greater_than_B(arr, B):
+    count = 0
+    product = 1
+    
+    for num in arr:
+        if num > B:
+            count += 1
+            product *= num
+    
+    return count, product
 
+# Ввод данных
+N = int(input("Введите размер массива: "))
+A = []
+for i in range(N):
+    A.append(float(input(f"Введите элемент {i+1}: ")))
+B = float(input("Введите число B: "))
+
+# Вычисление
+count, product = calculate_elements_greater_than_B(A, B)
+
+# Вывод
+print(f"Количество элементов > B: {count}")
+if count > 0:
+    print(f"Произведение элементов > B: {product}")
+else:
+    print("Нет элементов > B, произведение не вычислено.")
